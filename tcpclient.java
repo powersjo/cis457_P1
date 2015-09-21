@@ -6,15 +6,17 @@ class tcpclient{
     public static void main(String args[]) throws Exception{
 	//Prompt user for ip address
     	//Wait for ip address
-    	String ip_address;
+    	String ip_address, port;
     	Scanner input = new Scanner(System.in);
     	System.out.print("Enter an IP address, loopback address is 127.0.0.1");
     	ip_address = input.next();
+    	System.out.print("Enter a port, default port is 9876");
+    	port = input.next();
     	//Possibly add error checking for IP address
-    	if(checkIP(ip_address)){
-    		Socket clientSocket = new Socket(ip_address,9876);	
+    	if(checkIP(ip_address) && checkPort(port)){
+    		Socket clientSocket = new Socket(ip_address,port);	
     	} else {
-    		System.out.print("Not a valid ip address.");
+    		System.out.print("Not a valid ip address or port.");
     		System.exit();
     	}
     	//Assign user IP to socket
@@ -44,6 +46,14 @@ class tcpclient{
     Valid ip range is 0.0.0.1 to 255.255.255.254
     */
     private boolean checkIP(String ip){
+    	//Do work
+    	return false; //or true
+    }
+    /*
+    Check to make sure the input is a valid port. 
+    */
+    private boolean checkPort(String port){
+    	//Do work
     	return false; //or true
     }
 }
