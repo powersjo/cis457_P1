@@ -1,13 +1,23 @@
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 class tcpclient{
     public static void main(String args[]) throws Exception{
 	//Prompt user for ip address
     	//Wait for ip address
+    	String ip_address;
+    	Scanner input = new Scanner(System.in);
+    	System.out.print("Enter an IP address, loopback address is 127.0.0.1");
+    	ip_address = input.next();
     	//Possibly add error checking for IP address
+    	if(checkIP(ip_address)){
+    		Socket clientSocket = new Socket(ip_address,9876);	
+    	} else {
+    		System.out.print("Not a valid ip address.");
+    		System.exit();
+    	}
     	//Assign user IP to socket
-    Socket clientSocket = new Socket("127.0.0.1",9876);
 	DataOutputStream outToServer = 
 	    new DataOutputStream(clientSocket.getOutputStream());
 	BufferedReader inFromServer = 
@@ -16,9 +26,10 @@ class tcpclient{
 	BufferedReader inFromUser = 
             new BufferedReader(new InputStreamReader(System.in));
 	//notify user that they are connected to server or show error
-	//instructions for the user to communicate to server, ie: enter file name or message.
+	System.out.println("Connected to server...");
+	//instructions for the user to communicate to server, ie: enter file name.
 	// notify user if file does not exist
-	System.out.println("Enter a message: ");
+	System.out.println("Enter a file name: ");
 	String message = inFromUser.readLine();
 	//send file to server ***
 	outToServer.writeBytes(message+'\n');
@@ -27,5 +38,12 @@ class tcpclient{
 	System.out.println("Got from server: "+serverMessage);
 	//repeat or end program.
 	clientSocket.close();
+    }
+    /*
+    Check to make sure the input is a valid ipv4 address. 
+    Valid ip range is 0.0.0.1 to 255.255.255.254
+    */
+    private boolean checkIP(String ip){
+    	return false; //or true
     }
 }
