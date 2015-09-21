@@ -47,13 +47,13 @@ class tcpclient{
     */
     private boolean checkIP(String ip){
     	//Do work
-    	return false; //or true
+    	return true; //or true
     }
     /*
     Check to make sure the input is a valid port. 
     */
     private boolean checkPort(String port){
     	//Do work
-    	return false; //or true
+    	return true; //or true
     }
 }
