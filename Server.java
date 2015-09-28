@@ -41,7 +41,7 @@ public class Server {
 	    line = input.readLine();
 	    System.out.println(line);
 	    if(line != null){
-	      processRequest(line);
+		processRequest(line, socket);
 	    }	
 	    
 	    input.close();
@@ -50,7 +50,15 @@ public class Server {
 	    clientNum--;
 	}
 	
-	public void processRequest(String fileName) throws IOException{
-		
+    public void processRequest(String fileName, Socket sock) throws IOException{
+	    File myFile = new File (filename);
+	    byte [] myByteArray = new byte [(int)myFile.length()];
+	    FileInputStream fis = new FileInputStream(myFile);
+	    BufferedInputStream bis = new BufferedInputStream(fis);
+	    bis.read(myByteArray, 0, myByteArray.length);
+	    OutputStream os = sock.getOutputStream();
+	    os.write(myByteArray, 0, myByteArray.length);
+	    os.flush();
+	    System.out.println("File transfered.");
 	}
 }
