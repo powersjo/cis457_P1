@@ -4,7 +4,10 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.BufferedInputStream;
+import java.io.OutputStream;
 
 public class Server {
 	private String method = null;
