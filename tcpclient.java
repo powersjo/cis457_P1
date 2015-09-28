@@ -13,12 +13,12 @@ class tcpclient{
     	System.out.print("Enter a port, default port is 9876");
     	port = input.next();
     	//Possibly add error checking for IP address
-    	if(checkIP(ip_address) == true && checkPort(port) == true){
+    	/*if(checkIP(ip_address) == true && checkPort(port) == true){
     	} else {
     		System.out.print("Not a valid ip address or port.");
     		System.exit(0);
-    	}
-    		Socket clientSocket = new Socket(Integer.parseInt(ip_address),Integer.parseInt(port));	
+		}*/
+	Socket clientSocket = new Socket(ip_address,Integer.parseInt(port));	
     	//Assign user IP to socket
 	DataOutputStream outToServer = 
 	    new DataOutputStream(clientSocket.getOutputStream());
