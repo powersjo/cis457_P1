@@ -13,12 +13,12 @@ class tcpclient{
     	System.out.print("Enter a port, default port is 9876");
     	port = input.next();
     	//Possibly add error checking for IP address
-    	/*if(checkIP(ip_address) == true && checkPort(port) == true){
+    	if(checkIP(ip_address) == true && checkPort(port) == true){
     	} else {
     		System.out.print("Not a valid ip address or port.");
     		System.exit(0);
-		}*/
-	Socket clientSocket = new Socket(ip_address,Integer.parseInt(port));	
+		}
+		Socket clientSocket = new Socket(ip_address,Integer.parseInt(port));	
     	//Assign user IP to socket
 	DataOutputStream outToServer = 
 	    new DataOutputStream(clientSocket.getOutputStream());
@@ -46,14 +46,28 @@ class tcpclient{
     Valid ip range is 0.0.0.1 to 255.255.255.254
     */
     private boolean checkIP(String ip){
-    	//Do work
+    	String[] tokens = ip.split(".");
+    	if (tokens.length > 4) return false;
+    	int token;
+    	for (int i = 0; i < 4; i++){
+    		try{token = Integer.parseInt(tokens[i]);}
+    		catch(NumberFormatException e){return false;}
+    		if (i != 3) {
+    			if(token < 0 || token > 255) return false;
+    		}
+    		else if (token <1 || token > 254) return false;
+    	}
     	return true; //or true
     }
     /*
     Check to make sure the input is a valid port. 
     */
     private boolean checkPort(String port){
-    	//Do work
+    	int input;
+    	try{input = Integer.parseInt(port);}
+    	catch(NumberFormatException e){return false;}
+    	if(input < 0 || input > 65535) return false;
+    	return true;
     	return true; //or true
     }
 }
