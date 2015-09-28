@@ -54,7 +54,7 @@ public class Server {
 	}
 	
     public void processRequest(String fileName, Socket sock) throws IOException{
-	    File myFile = new File (filename);
+	    File myFile = new File (fileName);
 	    byte [] myByteArray = new byte [(int)myFile.length()];
 	    FileInputStream fis = new FileInputStream(myFile);
 	    BufferedInputStream bis = new BufferedInputStream(fis);
