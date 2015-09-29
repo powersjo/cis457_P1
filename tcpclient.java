@@ -34,13 +34,29 @@ class tcpclient{
 	// notify user if file does not exist
 	System.out.println("Enter a file name: ");
 	String message = inFromUser.readLine();
-	//send file to server ***
 	outToServer.writeBytes(message+'\n');
+	final int FILE_SIZE = 6022384;
+	FileOutputStream fos = new FileOutputStream("~/CIS457/" + message);
+	BufferedOutputStream bos = new BufferedOutputStream(fos);
+	byte [] myByteArray = new byte [FILE_SIZE];
+	InputStream is = clientSocket.getInputStream();
+	int bytesRead = is.read(myByteArray, 0, myByteArray.length);
+	int current = bytesRead;
+	do{
+	    bytesRead = is.read(myByteArray, current, (myByteArray.length - current));
+	    if(bytesRead >= 0){ current += bytesRead;}
+	} while (bytesRead > -1);
+	bos.write(myByteArray, 0, current);
+	bos.flush();
+ 	//send file to server ***
+	//outToServer.writeBytes(message+'\n');
 	String serverMessage = inFromServer.readLine();
 	//notify on success or failure
 	System.out.println("Got from server: "+serverMessage);
 	//repeat or end program.
 	clientSocket.close();
+	bos.close();
+	fos.close();
     }
     /*
     Check to make sure the input is a valid ipv4 address. 
